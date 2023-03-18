@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import APIForm from '../components/APIForm';
+import Gallery from '../components/Gallery';
 
 const ACCESS_KEY = import.meta.env.VITE_APP_ACCESS_KEY;
 
@@ -64,6 +65,7 @@ function App() {
 
     else {
       setCurrentImage(json.url);
+      setPrevImages((images) => [...images, json.url]);
       reset();
     }
   }
@@ -78,6 +80,8 @@ function App() {
       height: '',
     });
   }
+
+  const [prevImages, setPrevImages] = useState([]);
 
   return (
     <div className="whole-page">
@@ -122,6 +126,10 @@ function App() {
           </div>
 
           <br></br>
+
+          <div className="container">
+            <Gallery images={prevImages} />
+          </div>
           </div>
         );
     }
